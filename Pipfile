@@ -3,9 +3,12 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pypi"
 
-[packages]
+importlib-metadata = "*"
+importlib-resources = "*"
 sqlalchemy = "*"
 alembic = "*"
+faker = "*"
+ipdb = "*"
 
 [dev-packages]
 
