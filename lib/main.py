@@ -3,8 +3,6 @@ from sqlalchemy import create_engine, Column, String, Integer, ForeignKey, DateT
 from sqlalchemy.orm import sessionmaker, declarative_base, relationship
 from models import Customer, Car, Rental
 
-from cli import main
-
 engine = create_engine('sqlite:///lib/wheel_base.db')
 
 Session = sessionmaker(bind = engine)
@@ -29,14 +27,14 @@ def fetch_customers():
 
 def list_customer():
     customer_id = input("Enter customer id: ")
-    customer = session.query(Customer).get(customer_id)
+    customer = session.query(Customer).filter_by(id=customer_id)
     if customer:
         print(f"Name: {customer.name} Email: {customer.email}, Contact: {customer.contact}")
     else:
         print("Customer not found")
         
 def update_customer():
-    customer_id = input("Enter custoner id: ")
+    customer_id = input("Enter customer id: ")
     customer = session.query(Customer).filter_by(id=customer_id).first()
     if customer:
         name = input("Enter new customer name: ")
@@ -64,42 +62,74 @@ def delete_customer():
         
         
 # car model
-def create_car():
-    make = input("Enter car make: ")
-    model = input("Enter car model: ")
-    make_year = int(input("Enter car make year: "))
-    license_plate = input("Enter license number: ")
-    car = Car(make= make, model = model, make_year = make_year, license_plate = license_plate)
-    session.add(car)
-    session.commit()
-    print("Car added successfully")
-    
-def fetch_car():
-    # customer_id = input("Enter customer id: ")
+# def create_car():
+#     make = input("Enter car make: ")
+#     model = input("Enter car model: ")
+#     make_year = int(input("Enter car make year: "))
+#     license_plate = input("Enter license number: ")
+#     car = Car(make= make, model = model, make_year = make_year, license_plate = license_plate)
+#     session.add(car)
+#     session.commit()
+#     print("Car added successfully")
+
+def find_car():
     cars = session.query(Car).all()
-    for car in cars:
-        print(f"Make: {car.make}, Model: {car.model}, MakeYear: {car.make_year}, license_plate{car.license_plate}")
+    car_dict = {car.make: car for car in cars}
+
+    make = input("Enter the name of the team: ").title()
+    if not make:
+        print("\033[31mTeam name cannot be empty.\033[0m")
+        return
+    
+    if make in car_dict:
+        car = car_dict[make]
+        print(f"Car Id: {car.id}")
+        print(f"Car make: {car.make}")
+        print(f"Car Model: {car.model}")
+        print(f"Make Year: {car.year}")
+        print(f"Car Color: {car.color}")
+        print(f"Car Mileage: {car.mileage}")
+        print(f"Car Price: {car.rental_price}")
+        print(f"Availability: {car.available}")
+        print("\n")
+        print("\033[32mCar Successfully found\033[0m")
+    else:
+        print("\033[31mCar not found.\033[0m")
+
+    
+# def fetch_car():
+    # customer_id = input("Enter customer id: ")
+    # cars = session.query(Car).all()
+    
+    # for car in cars:
+    #     print(f"Make: {car.make}, Model: {car.model}, MakeYear: {car.make_year}, license_plate{car.license_plate}")
 
 def list_cars():
-    car_id = input("Enter car id: ")
-    car = session.query(Car).filter_by(id=car_id).first()
-    if car:
-        print(f"Make: {car.make} Model: {car.model}, Makeyear: {car.make_year}, license_plate{car.license_plate}")
+    # car_id = input("Enter car id: ")
+    cars = session.query(Car).all()
+    car_list = {car.make for car in cars}
+    if car_list:
+        print("Cars: \n")
+        for make in car_list:
+            print(make)
     else:
-        print("Car not found")
+        print("\033[31mCar not found.\033[0m")
+    #     print(f"Make: {car.make} Model: {car.model}, Makeyear: {car.make_year}, license_plate{car.license_plate}")
+    # else:
+    #     print("Car not found")
         
 def update_car():
-    car_id = input("Enter car id: ")
+    car_id = input("\033[Enter car id: \033[0m]")
     car = session.query(Car).filter_by(id=car_id).first()
     if car:
         make = input("Enter new make: ")
         model = input("Enter new model: ")
         make_year = input("Enter new make year: ")
-        license_plate = input("Enter license plate: ")
+        # license_plate = input("Enter license plate: ")
         car.make = make
         car.model = model
         car.make_year = make_year
-        car.license_plate = license_plate
+        # car.license_plate = license_plate
         
         session.commit()
         print("Car uploaded successfully")
@@ -182,9 +212,8 @@ def delete_car_rental():
     else:
         print("Car not hired!")
 
-if __name__ == "__main__":
-    update_car_rental()
-    delete_customer()
+# if __name__ == "__main__":
+#     create_customer()
 
     
     
