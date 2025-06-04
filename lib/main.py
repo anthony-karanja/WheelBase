@@ -24,28 +24,29 @@ def fetch_customers():
     customers = session.query(Customer).all()
     for customer in customers:
         print(f"Name: {customer.name}, Email: {customer.email}, Contact: {customer.contact}")
+        
 
 def list_customer():
-    customer_id = input("Enter customer id: ")
+    customer_id = int("Enter customer id: ")
     customer = session.query(Customer).filter_by(id=customer_id)
     if customer:
-        print(f"Name: {customer.name} Email: {customer.email}, Contact: {customer.contact}")
+        print(f" Name: {customer.name} Email: {customer.email}, Contact: {customer.contact}")
     else:
         print("Customer not found")
         
 def update_customer():
-    customer_id = input("Enter customer id: ")
+    customer_id = input("\033[31mEnter customer id: \033[0m")
     customer = session.query(Customer).filter_by(id=customer_id).first()
     if customer:
-        name = input("Enter new customer name: ")
-        email = input("Enter new customer email: ")
-        contact = input("Enter new customer contact: ")
+        name = input("\033[31Enter new customer name: \033[0m")
+        email = input("\033[31Enter new customer email: \033[0m")
+        contact = input("\033[31Enter new customer contact: \033[0m")
         customer.name = name
         customer.email = email
         customer.contact = contact
         
         session.commit()
-        print("custoemr uploaded successfully")
+        print("\033[35mcustoemr uploaded successfully\033[0m")
     else:
         print("Customer not found")
         
@@ -55,19 +56,19 @@ def delete_customer():
     if customer:
         session.delete(customer)
         session.commit()
-        print("Customer deleted successfully")
+        print("\033[31mCustomer deleted successfully\033[0m")
         
     else:
-        print("Customer not found")
+        print("\033[31mCustomer not found\033[0m")
         
         
 # car model
 # def create_car():
 #     make = input("Enter car make: ")
 #     model = input("Enter car model: ")
-#     make_year = int(input("Enter car make year: "))
-#     license_plate = input("Enter license number: ")
-#     car = Car(make= make, model = model, make_year = make_year, license_plate = license_plate)
+#     year = int(input("Enter car make year: "))
+#     # license_plate = input("Enter license number: ")
+#     color = Car(make= make, model = model, make_year = year, license_plate = license_plate)
 #     session.add(car)
 #     session.commit()
 #     print("Car added successfully")
@@ -76,14 +77,14 @@ def find_car():
     cars = session.query(Car).all()
     car_dict = {car.make: car for car in cars}
 
-    make = input("Enter the name of the team: ").title()
+    make = input("Enter the name of the car: ").title()
     if not make:
-        print("\033[31mTeam name cannot be empty.\033[0m")
+        print("\033[31mCar name cannot be empty.\033[0m")
         return
     
     if make in car_dict:
         car = car_dict[make]
-        print(f"Car Id: {car.id}")
+        print(f"\nCar Id: {car.id}")
         print(f"Car make: {car.make}")
         print(f"Car Model: {car.model}")
         print(f"Make Year: {car.year}")

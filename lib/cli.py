@@ -3,11 +3,10 @@ def main():
     from main import create_car_rental, fetch_car_rentals, list_car_rental, update_car_rental, delete_car_rental
 
     while True:
-        print("1. Manage Customers")
+        print("\n1.Manage Customers")
         print("2.Manage Cars")
         print("3. Manage car rentals")
-        print("0.Exit")
-        main_choice = input("Enter your choice: ")
+        main_choice = input("\n\033[31mEnter your choice: \033[0m")
 
         if main_choice == "1" :
             print("1. Create customer")
@@ -17,7 +16,7 @@ def main():
             print("5.Delete Customer")
             print("0.Exit")
 
-            choice = input("Enter your choice: ")
+            choice = input("\n\033[35mEnter your choice: \033[0m")
             if choice == "1":
                 create_customer()
             elif choice == "2":
@@ -29,10 +28,10 @@ def main():
             elif choice == "5":
                 delete_customer() 
             elif choice == "0":
-                print("Bye! Bye!")
+                print("Adios!!🫡")
                 break   
             else:
-                print("Invalid input!Try again")   
+                print("\n\033[33mInvalid input!Try again\033[0m")   
 
         if main_choice == "2" :
             print("1. Find car")
@@ -41,22 +40,38 @@ def main():
             print("3.Update Car")
             print("4.Delete Car")
             print("0. Exit")
-
-            choice = input("Enter your choice: ")
+            
+            
+            choice = input("\n\033[35mEnter your choice: \033[0m")
             if choice == "1":
                 find_car()
-            
-            elif choice == "3":
+            elif choice == "2":
                 list_cars()
-            elif choice == "4":
+            elif choice == "3":
                 update_car()
-            elif choice == "5":
+            elif choice == "4":
                 delete_car()
             elif choice == "0":
-                print("Bye! Bye!")
+                print("Adios!!🫡")
                 break   
             else:
-                print("\033[31mInvalid input!Try again\033[0m")         
+                print("\n\033[33mInvalid input!Try again\033[0m") 
+
+            # choice = input("\033[31mEnter your choice: \033")
+            # if choice == "1":
+            #     find_car()
+            
+            # elif choice == "2":
+            #     list_cars()
+            # elif choice == "3":
+            #     update_car()
+            # elif choice == "4":
+            #     delete_car()
+            # elif choice == "0":
+            #     print("Adios!!🫡")
+            #     break   
+            # else:
+            #     print("\033[31mInvalid input!Try again\033[0m")         
 
 
         if main_choice == "3" :
@@ -67,7 +82,7 @@ def main():
             print("5.Delete Car rented")
             print("0. Exit")
 
-            choice = input("Enter your choice")
+            choice = input("\033[31mEnter your choice\033[0m")
             if choice == "1":
                 create_car_rental()
             elif choice == "2":
@@ -79,10 +94,10 @@ def main():
             elif choice == "5":
                 delete_car_rental()    
             elif choice == "0":
-                print("Bye! Bye!")
+                print("Adios!!🫡")
                 break   
             else:
-                print("Invalid input!Try again") 
+                print("\033[31mInvalid input!Try again\033[0m") 
 
 
 if __name__ == "__main__":
